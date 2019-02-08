@@ -1,5 +1,5 @@
 checkout:
-  - patten:
+  - patterns:
       - "test"
-    command:
+    commands:
       - "echo 'works'"

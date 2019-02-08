@@ -4,26 +4,16 @@ use std::io::ErrorKind;
 use std::io::Read;
 use std::path::PathBuf;
 use std::process;
-#[derive(Deserialize, Debug)]
-struct Command {
-    pattern: Vec<String>,
-    commands: Vec<String>,
-}
 
-#[derive(Deserialize, Debug)]
-struct Config {
-    commands: Vec<Command>,
-}
+use crate::parse;
 
-pub fn resolve_config_file() -> String {
+pub fn from_file() -> parse::Config {
     let mut config_file = env::current_dir().expect("Unable to resolve cwd");
-    println!("Starting in: {:?}", config_file);
     let mut file = resolve_file_up_tree(&mut config_file);
     let mut r = String::new();
     file.read_to_string(&mut r)
         .expect("Could not read file stream");
-    println!("Found config {}", r);
-    r
+    parse::Config::new(&r)
 }
 
 fn append_file_hooks(path: &mut PathBuf) -> PathBuf {
@@ -32,7 +22,6 @@ fn append_file_hooks(path: &mut PathBuf) -> PathBuf {
 
 fn resolve_file_up_tree(working_dir: &mut PathBuf) -> File {
     let config_path = append_file_hooks(working_dir);
-    println!("Checking: {:?}", config_path);
     match File::open(config_path) {
         Ok(f) => f,
         Err(error) => match error.kind() {
