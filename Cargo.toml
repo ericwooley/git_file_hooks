@@ -1,0 +1,12 @@
+[package]
+name = "checkout_for_file"
+version = "0.1.0"
+authors = ["Eric Wooley <ericwooley@gmail.com>"]
+edition = "2018"
+[profile.release]
+lto=true
+panic="abort"
+[dependencies]
+serde = "1.0"
+serde_derive = "1.0"
+serde_yaml = "0.8"
