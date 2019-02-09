@@ -73,6 +73,8 @@ pub fn filter_commands_by_files(
             }
             return false;
         })
+        // I'm not really sure why I need to clone this. Lifetime should be fine as far as I know,
+        // but maybe not.
         .flat_map(|command| command.commands.clone())
         .collect()
 }

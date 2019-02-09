@@ -23,8 +23,8 @@ impl Config {
 
 fn deserialize_config(raw: &String) -> HashMap<String, Vec<Command>> {
     serde_yaml::from_str(&raw).unwrap_or_else(|err| {
-        println!("Could not parse input:\n {}", &raw.as_str());
-        println!("Error: {:?}", err);
+        eprintln!("Could not parse input:\n {}", &raw.as_str());
+        eprintln!("Error: {:?}", err);
         panic!("Error validating config file")
     })
 }

@@ -29,7 +29,7 @@ fn resolve_file_up_tree(working_dir: &mut PathBuf) -> File {
                 let mut parent = working_dir.parent().unwrap().to_path_buf();
                 let mut parent = append_file_hooks(&mut parent);
                 if parent.to_string_lossy() == working_dir.to_string_lossy() {
-                    println!("Could not resolve .file_hooks.yml");
+                    eprintln!("Could not resolve .file_hooks.yml");
                     process::exit(1);
                 }
                 resolve_file_up_tree(&mut parent)
