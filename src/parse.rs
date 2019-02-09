@@ -1,9 +1,9 @@
 use std::collections::HashMap;
 
-#[derive(Deserialize, Debug)]
+#[derive(Deserialize, Debug, PartialEq)]
 pub struct Command {
-    patterns: Vec<String>,
-    commands: Vec<String>,
+    pub patterns: Vec<String>,
+    pub commands: Vec<String>,
 }
 #[derive(Debug)]
 pub struct Config {
