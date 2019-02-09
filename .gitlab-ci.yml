@@ -2,4 +2,4 @@ image: rust:1.32
 
 test:
   stage: test
-  script: RUST_BACKTRACE=1 cargo run test
+  script: cargo build; RUST_BACKTRACE=1 cargo run test
