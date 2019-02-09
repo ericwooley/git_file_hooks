@@ -54,7 +54,7 @@ fn run_git_diff_files(sha1: &String, sha2: &String) -> Vec<String> {
 pub fn filter_commands_by_files(
     commands: &Vec<parse::Command>,
     files: &Vec<String>,
-) -> Vec<String> {
+) -> Vec<Vec<String>> {
     commands
         .iter()
         .filter(|command| {
@@ -75,7 +75,7 @@ pub fn filter_commands_by_files(
         })
         // I'm not really sure why I need to clone this. Lifetime should be fine as far as I know,
         // but maybe not.
-        .flat_map(|command| command.commands.clone())
+        .map(|command| command.commands.clone())
         .collect()
 }
 
@@ -155,7 +155,7 @@ mod tests {
             "non matching command should be filtered out"
         );
         assert_eq!(
-            commands.get(0).expect("Expected first command to be rust"),
+            commands.get(0).unwrap().get(0).unwrap(),
             &echo_command,
             "rs files exist, so the command should execute"
         )

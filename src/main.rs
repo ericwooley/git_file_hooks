@@ -1,10 +1,12 @@
 #[macro_use]
 extern crate serde_derive;
 extern crate glob;
+extern crate run_script;
 extern crate serde;
 extern crate serde_yaml;
 use std::process;
 mod config;
+mod exec_commands;
 mod git_command;
 mod parse;
 
@@ -21,5 +23,6 @@ fn main() {
     };
     let files = git_command::get_changed_files();
     let commands = git_command::filter_commands_by_files(&commands, &files);
-    // command::run_commands(hook, files)
+
+    exec_commands::exec_commands(commands);
 }

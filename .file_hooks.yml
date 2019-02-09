@@ -1,5 +1,7 @@
 checkout:
   - patterns:
-      - "test"
+      - "**/*.rs"
     commands:
-      - "echo 'works'"
+      - sleep 1; echo 'slept 1 second'
+      - sleep 2; echo 'slept for 2 seconds'
+      - sleep 5; echo 'slept for 5 seconds'
