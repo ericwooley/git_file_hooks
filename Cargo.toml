@@ -1,5 +1,5 @@
 [package]
-name = "checkout_for_file"
+name = "git_file_hooks"
 version = "0.1.0"
 authors = ["Eric Wooley <ericwooley@gmail.com>"]
 edition = "2018"
@@ -12,5 +12,3 @@ serde_derive = "1.0"
 serde_yaml = "0.8"
 glob = "0.2"
 run_script = "0.2.5"
-[dependencies.spinner]
-version = "0.3"

@@ -5,3 +5,10 @@ checkout:
       - sleep 1; echo 'slept 1 second'
       - sleep 2; echo 'slept for 2 seconds'
       - sleep 5; echo 'slept for 5 seconds'
+update:
+  - patterns:
+      - "**/*.rs"
+    commands:
+      - sleep 1; echo "slept 1 second"
+      - sleep 2; echo "slept 2 seconds, erroring"; exit 1;
+      - sleep 3; echo "slept 3 seconds";

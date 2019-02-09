@@ -1,18 +1,14 @@
 use run_script::ScriptOptions;
-use spinner::SpinnerBuilder;
 use std::process;
 use std::sync::{Arc, Mutex};
 use std::thread;
 pub fn exec_commands(commands: Vec<Vec<String>>) {
     for command_group in commands {
-        let sp = Arc::new(Mutex::new(
-            SpinnerBuilder::new("spawning commands".into()).start(),
-        ));
         let finished_command_count = Arc::new(Mutex::new(0));
         let mut handles: Vec<thread::JoinHandle<()>> = vec![];
         let len = command_group.len();
+        print_separator();
         for cmd in command_group {
-            let sp = Arc::clone(&sp);
             let finished_command_count = Arc::clone(&finished_command_count);
             handles.push(thread::spawn(move || {
                 let mut options = ScriptOptions::new();
@@ -26,31 +22,41 @@ pub fn exec_commands(commands: Vec<Vec<String>>) {
                 let (code, output, error) = run_script::run(&cmd, &args, &options).unwrap();
                 let mut finished_command_count = finished_command_count.lock().unwrap();
                 *finished_command_count += 1;
-                // println!("\n----------------------------------------------------------------------------------------------");
-                println!("\nCommand: {}", cmd);
-                println!("stdout: {}", output);
+
+                println!("Command: {}", cmd);
+                if output.trim().len() > 0 {
+                    println!("stdout: {}", output.trim());
+                }
                 if error.len() > 0 {
-                eprintln!("stderr: {}", error);}
-                if(code != 0) {
-                    eprint!("Hook Error: `{}` exited with code {}", cmd, code);
+                    eprintln!("stderr: {}", error);
+                }
+                println!("👷 jobs done: {}/{}", finished_command_count, len);
+                print_separator();
+                if code != 0 {
+                    eprintln!("⚠️  ");
+                    eprintln!("⚠️  Error: `{}` exited with code {} 😟", cmd, code);
+                    eprintln!("⚠️  ");
                     process::exit(code);
                 }
-                println!("\n----------------------------------------------------------------------------------------------\n");
-                let sp = sp.lock().unwrap();
-                sp.update(format!("{}/{}: finished `{}`", finished_command_count, len, cmd).into());
             }));
         }
         for handle in handles {
-            handle.join();
+            handle.join().expect("Error rejoining threads");
         }
     }
-    println!("Jobs Done!")
+    println!("💪 Jobs Done! 🙌")
+}
+
+fn print_separator() {
+    println!("----------------------------------------------------------------------------------------------");
 }
 
 #[cfg(test)]
 mod test {
     use super::*;
 
+    // this test really just makes sure there are no panics. Hard to test this as it's basically
+    // a giant side affect
     #[test]
     fn it_should_parse_commands() {
         exec_commands(vec![vec![String::from("echo \"hello world\" ")]]);

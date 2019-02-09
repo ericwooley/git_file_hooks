@@ -63,8 +63,8 @@ pub fn filter_commands_by_files(
                 let patterns = &command.patterns;
                 for pattern in patterns {
                     let pattern = glob::Pattern::new(pattern).unwrap_or_else(|err| {
-                        println!("Malformed pattern: {}", pattern);
-                        process::exit(0)
+                        eprintln!("Malformed pattern: {}, err: {}", pattern, err);
+                        process::exit(1)
                     });
                     if pattern.matches(file) {
                         return true;
