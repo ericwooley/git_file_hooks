@@ -7,10 +7,13 @@ pub fn exec_commands(commands: Vec<Vec<String>>) {
         let finished_command_count = Arc::new(Mutex::new(0));
         let mut handles: Vec<thread::JoinHandle<()>> = vec![];
         let len = command_group.len();
+        println!("");
+        println!("🚀 Executing Command Group: {:?}", command_group);
         print_separator();
         for cmd in command_group {
             let finished_command_count = Arc::clone(&finished_command_count);
             handles.push(thread::spawn(move || {
+                println!("🤖 Executing: {}", cmd);
                 let mut options = ScriptOptions::new();
                 options.runner = None; // The script runner, for example bash. By default for windows it's cmd.exe and for other systems it is sh.
                 options.capture_output = true; // True to capture and return the output. False will print it to the parent process output.
@@ -48,6 +51,7 @@ pub fn exec_commands(commands: Vec<Vec<String>>) {
 }
 
 fn print_separator() {
+    println!("");
     println!("----------------------------------------------------------------------------------------------");
 }
 

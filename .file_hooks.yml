@@ -11,6 +11,9 @@ rust_test: &RUST_TEST
     commands: &SLEEPY
       - sleep 1; echo 'slept 1 second'
       - sleep 2; echo 'slept for 2 seconds'
+  - patterns: *RUST_PATTERN
+    commands: &SLEEPY
+      - sleep 2; echo 'slept for 2 seconds for the second times'
 rust_test_failure: &RUST_TEST_FAILURE
   - patterns: *RUST_PATTERN
     commands:
