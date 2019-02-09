@@ -3,6 +3,14 @@ Run git hooks based off of a yaml file.
 
 ## Installation
 1. curl binary into .git/hooks/post-checkout
+```bash
+# linux
+curl -L https://github.com/ericwooley/git_file_hooks/releases/download/0.0.2/git_file_hooks-linux-gnu -o .git/hooks/post-checkout
+
+#osx
+# linux
+curl -L https://github.com/ericwooley/git_file_hooks/releases/download/0.0.2/git_file_hooks-darwin -o .git/hooks/post-checkout
+```
 2. create .file_hooks.yml with the content
 ```yml
 post-checkout:
