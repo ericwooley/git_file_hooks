@@ -6,22 +6,47 @@ use std::process;
 use std::process::Command;
 fn get_argv() -> Vec<String> {
     let argv: Vec<String> = env::args().collect();
-    // if argv.len() < 3 {
-    //     panic!("arg1 and arg2 should be the commits that changed.")
-    // }
     argv
 }
 pub fn get_hook() -> String {
     let argv = get_argv();
     let cmd = &argv[0];
     if argv.len() > 3 {
-        return argv[3].clone();
+        let cmd = String::from(argv[3].clone());
+        for hook in (vec![
+            String::from("applypatch-msg"),
+            String::from("pre-applypatch"),
+            String::from("post-applypatch"),
+            String::from("pre-commit"),
+            String::from("prepare-commit-msg"),
+            String::from("commit-msg"),
+            String::from("post-commit"),
+            String::from("pre-rebase"),
+            String::from("post-checkout"),
+            String::from("post-merge"),
+            String::from("pre-push"),
+            String::from("pre-receive"),
+            String::from("update"),
+            String::from("post-receive"),
+            String::from("post-update"),
+            String::from("push-to-checkout"),
+            String::from("pre-auto-gc"),
+            String::from("post-rewrite"),
+            String::from("rebase"),
+            String::from("sendemail-validate"),
+            String::from("fsmonitor-watchman"),
+        ])
+        .iter()
+        {
+            if &cmd == hook {
+                return cmd;
+            }
+        }
     }
     arg0_to_hook(cmd)
 }
 fn arg0_to_hook(cmd: &String) -> String {
     let cmd = PathBuf::from(cmd);
-    println!("running hook: {:?}", cmd);
     cmd.file_name()
         .expect("Unable to determine hook")
         .to_string_lossy()
