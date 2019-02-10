@@ -22,6 +22,10 @@ fn main() {
         }
     };
     let files = git_command::get_changed_files();
+    if files.len() == 0 {
+        println!("No files too run for hook {}", hook);
+        process::exit(0);
+    }
     let commands = git_command::filter_commands_by_files(&commands, &files);
 
     exec_commands::exec_commands(commands);

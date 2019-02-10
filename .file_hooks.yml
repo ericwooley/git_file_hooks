@@ -32,7 +32,6 @@ pre-push: *CARGO_TEST
 pre-commit: *CARGO_TEST
 
 post-checkout: *RUST_SLEEP_TEST
-post-commit: *RUST_SLEEP_TEST
 
 # Test Hooks
 update: *RUST_TEST_FAILURE

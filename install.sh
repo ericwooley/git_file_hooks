@@ -13,7 +13,7 @@ confirm() {
     esac
 }
 OS=$OSTYPE;
-VERSION="0.0.3";
+VERSION="0.0.4";
 NOW=$(date +%Y.%m.%d-%H:%M:%S)
 install_hook() {
     HOOK=$1;
