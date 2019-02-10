@@ -1,6 +1,15 @@
 # git_file_hooks
 
-Run git hooks based off of a yaml file.
+Manage your git hooks, and only run the ones you need. Commit a yaml file, and live free!
+
+## Features
+* 0 dependencies, just a single blob.
+* place your .file_hooks.yml file anywhere up your file tree from the git repo.
+* concurrently run commands. 
+
+## Potential future features
+* exclude globs
+* streaming output for commands instead of catpuring output and adding it later. [See this issue](https://github.com/sagiegurari/run_script/issues/4)
 
 ## Installation
 
