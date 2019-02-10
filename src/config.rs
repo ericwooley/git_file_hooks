@@ -27,7 +27,7 @@ fn resolve_file_up_tree(working_dir: &mut PathBuf) -> File {
         Err(error) => match error.kind() {
             ErrorKind::NotFound => {
                 let mut parent = working_dir.parent().unwrap().to_path_buf();
-                let mut parent = append_file_hooks(&mut parent);
+                println!("checking path: {:?}", parent);
                 if parent.to_string_lossy() == working_dir.to_string_lossy() {
                     eprintln!("Could not resolve .file_hooks.yml");
                     process::exit(1);
