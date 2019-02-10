@@ -1,16 +1,12 @@
 # git_file_hooks
+
 Run git hooks based off of a yaml file.
 
 ## Installation
-1. curl binary into .git/hooks/post-checkout
-```bash
-# linux
-curl -L https://github.com/ericwooley/git_file_hooks/releases/download/0.0.2/git_file_hooks-linux-gnu -o .git/hooks/post-checkout
 
-# osx
-curl -L https://github.com/ericwooley/git_file_hooks/releases/download/0.0.2/git_file_hooks-darwin -o .git/hooks/post-checkout
-```
-2. create .file_hooks.yml with the content
+1.  `bash <(curl -fsSL https://raw.githubusercontent.com/ericwooley/git_file_hooks/master/install.sh) # or curl into a file, inspect and run that.`
+2.  create .file_hooks.yml with the content
+
 ```yml
 post-checkout:
   - patterns:
@@ -33,6 +29,7 @@ post-checkout:
 ```
 
 ## About .file_hooks.yml
+
 At the root is the name of the hook (currently only post-checkout is supported).
 
 The next level down is an array of `{patterns: [], commands: []}`

@@ -6,9 +6,9 @@ use std::process;
 use std::process::Command;
 fn get_argv() -> Vec<String> {
     let argv: Vec<String> = env::args().collect();
-    if argv.len() < 3 {
-        panic!("arg1 and arg2 should be the commits that changed.")
-    }
+    // if argv.len() < 3 {
+    //     panic!("arg1 and arg2 should be the commits that changed.")
+    // }
     argv
 }
 pub fn get_hook() -> String {
@@ -21,7 +21,6 @@ pub fn get_hook() -> String {
 }
 fn arg0_to_hook(cmd: &String) -> String {
     let cmd = PathBuf::from(cmd);
-
     cmd.file_name()
         .expect("Unable to determine hook")
         .to_string_lossy()
@@ -30,9 +29,16 @@ fn arg0_to_hook(cmd: &String) -> String {
 
 pub fn get_changed_files() -> Vec<String> {
     let argv = get_argv();
-    let git_hash_1 = &argv[1].clone();
-    let git_hash_2 = &argv[2].clone();
-    run_git_diff_files(git_hash_1, git_hash_2)
+    let git_hash_1 = match argv.get(1) {
+        Some(v) => v.clone(),
+        None => String::from("HEAD"),
+    };
+    let git_hash_2 = match argv.get(2) {
+        Some(v) => v.clone(),
+        None => String::from("ORIG_HEAD"),
+    };
+    println!("diffing {} and {}", git_hash_1, git_hash_2);
+    run_git_diff_files(&git_hash_1, &git_hash_2)
 }
 
 fn run_git_diff_files(sha1: &String, sha2: &String) -> Vec<String> {

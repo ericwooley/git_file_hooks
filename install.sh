@@ -13,7 +13,7 @@ confirm() {
     esac
 }
 OS=$OSTYPE;
-VERSION="0.0.2";
+VERSION="0.0.3";
 NOW=$(date +%Y.%m.%d-%H:%M:%S)
 install_hook() {
     HOOK=$1;
@@ -55,8 +55,8 @@ hooks=(
 
 echo "set OVERWRITE_ALL_HOOKS=true to skip overwrite checks: $OVERWRITE_ALL_HOOKS";
 for i in "${hooks[@]}"
-do
-   : 
+do 
+    : 
     if [ ! -f .git/hooks/$i ]; then
         install_hook $i;
     elif [ ! -z "$OVERWRITE_ALL_HOOKS" ]; then
