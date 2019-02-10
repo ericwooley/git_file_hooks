@@ -51,6 +51,34 @@ post-checkout: &BASIC_HOOK_COMMAND
 # fsmonitor-watchman: *BASIC_HOOK_COMMAND
 ```
 
+## Upgrading
+You can run the install script with a few enviornment variables for easier upgrades.
+### Upgrade and backup existing hooks
+`OVERWRITE_ALL_HOOKS=true ./install.sh`
+### Upgrade and do not backup existing hooks
+`OVERWRITE_ALL_HOOKS=true NO_HOOK_BACKUPS=true ./install.sh`
+
+## Development
+Use cargo:1.32.0
+
+The make file has various helpful tasks. It's most of it's integration tests are run against the commits in this repo. Not ideal... but it sure is easy.
+
+`make build` will generate a build for your platform. 
+
+`OVERWRITE_ALL_HOOKS=true NO_HOOK_BACKUPS=true USE_LOCAL=true ./install.sh` Will install the build from the build/* directory instead of from the latest resease.
+
+## Releasing a new version.
+1. Push the changes, `make build` and draft a new release using `vX.X.X` where X is the release number.
+
+2. Upload the binary, for gnu-linux and osx. 
+
+3. Publish the release
+
+4. update the install.sh script version variable to match the released version, otherwise the install script will install the previous version. 
+
+5. push the install.sh update to master.
+
+
 ## About .file_hooks.yml
 
 At the root is the name of the hook (currently only post-checkout is supported).
