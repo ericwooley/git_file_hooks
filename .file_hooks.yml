@@ -5,7 +5,7 @@ node: &NODE_JS
     commands: &YARN_INSTALL
       - yarn install
 
-rust_test: &RUST_TEST
+rust_test: &RUST_SLEEP_TEST
   - patterns: &RUST_PATTERN
       - "**/*.rs"
     commands: &SLEEPY
@@ -21,11 +21,18 @@ rust_test_failure: &RUST_TEST_FAILURE
       - sleep 2; echo "slept 2 seconds, erroring"; exit 1;
       - sleep 3; echo "slept 3 seconds";
 
+cargo_test: &CARGO_TEST
+  - patterns:
+      - "**/*.rs"
+    commands:
+      - cargo test;
 # Hooks
 
-# Post checkout is the only supported hook for now
-post-checkout: *RUST_TEST
-post-commit: *RUST_TEST
+pre-push: *CARGO_TEST
+pre-commit: *CARGO_TEST
+
+post-checkout: *RUST_SLEEP_TEST
+post-commit: *RUST_SLEEP_TEST
 
 # Test Hooks
 update: *RUST_TEST_FAILURE
