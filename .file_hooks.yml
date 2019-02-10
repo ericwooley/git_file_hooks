@@ -25,6 +25,7 @@ rust_test_failure: &RUST_TEST_FAILURE
 
 # Post checkout is the only supported hook for now
 post-checkout: *RUST_TEST
+post-commit: *RUST_TEST
 
 # Test Hooks
 update: *RUST_TEST_FAILURE
