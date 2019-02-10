@@ -76,11 +76,15 @@ pub fn get_changed_files() -> Vec<String> {
     match argv.get(3) {
         Some(v) => {
             if !str_is_hook(&v) {
+                println!("3rd arg is hook {}, running in dev mode", v);
                 git_hash_1 = String::from("HEAD");
                 git_hash_2 = String::from("ORIG_HEAD");
             }
         }
-        None => (),
+        None => {
+            git_hash_1 = String::from("HEAD");
+            git_hash_2 = String::from("ORIG_HEAD");
+        }
     };
 
     println!("diffing {} and {}", git_hash_1, git_hash_2);

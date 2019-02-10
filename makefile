@@ -26,7 +26,7 @@ build_prod:
 	./build-prod.sh;
 
 build:
-	make build_prod;
+	./build-prod.sh;
 
 build-dev:
 	cargo build;
