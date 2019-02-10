@@ -16,7 +16,7 @@ OS=$OSTYPE;
 if [[ "$OSTYPE" == "darwin"* ]]; then
   OS="darwin";
 fi
-VERSION="v0.0.4";
+VERSION="v0.0.5";
 NOW=$(date +%Y.%m.%d-%H:%M:%S)
 install_hook() {
     HOOK=$1;
