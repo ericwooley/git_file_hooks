@@ -13,6 +13,10 @@ confirm() {
     esac
 }
 OS=$OSTYPE;
+if [[ "$OSTYPE" == "darwin"* ]]; then
+  OS="darwin";
+fi
+echo "binary url: https://github.com/ericwooley/git_file_hooks/releases/download/$VERSION/git_file_hooks-$OS";
 VERSION="0.0.4";
 NOW=$(date +%Y.%m.%d-%H:%M:%S)
 install_hook() {
@@ -25,8 +29,8 @@ install_hook() {
     fi
     echo "installing $HOOK";
     # useful for testing
-    # cp build/git_file_hooks-$OS .git/hooks/$HOOK
-    curl -L -s https://github.com/ericwooley/git_file_hooks/releases/download/$VERSION/git_file_hooks-$OS -o .git/hooks/$HOOK;
+    cp build/git_file_hooks-$OS .git/hooks/$HOOK
+    # curl -L https://github.com/ericwooley/git_file_hooks/releases/download/$VERSION/git_file_hooks-$OS -o .git/hooks/$HOOK;
     chmod +x .git/hooks/$HOOK;
 }
 
