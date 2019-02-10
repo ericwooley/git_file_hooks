@@ -4,7 +4,7 @@ Run git hooks based off of a yaml file.
 
 ## Installation
 
-1.  `bash <(curl -fsSL https://raw.githubusercontent.com/ericwooley/git_file_hooks/master/install.sh) # or curl into a file, inspect and run that.`
+1.  `bash <(curl -fsSL https://raw.githubusercontent.com/ericwooley/git_file_hooks/master/install.sh)` or curl into a file, inspect and run that.
 2.  create .file_hooks.yml with the content
 
 ```yml
