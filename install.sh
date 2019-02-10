@@ -26,10 +26,15 @@ install_hook() {
             mv .git/hooks/$1 .git/hooks/$1.$NOW.bak
         fi
     fi
-    echo "installing $HOOK";
-    # useful for testing
-    # cp build/git_file_hooks-$OS .git/hooks/$HOOK
-    curl -L -s https://github.com/ericwooley/git_file_hooks/releases/download/$VERSION/git_file_hooks-$OS -o .git/hooks/$HOOK;
+    if [ -z "$USE_LOCAL" ]; then
+        echo "installing $HOOK";
+        # TODO: This could be much much faster if we download to a tmp file and just copy.
+        curl -L -s https://github.com/ericwooley/git_file_hooks/releases/download/$VERSION/git_file_hooks-$OS -o .git/hooks/$HOOK;
+    else
+        # useful for testing
+        echo "installing local build to $HOOK";
+        cp build/git_file_hooks-$OS .git/hooks/$HOOK
+    fi
     chmod +x .git/hooks/$HOOK;
 }
 

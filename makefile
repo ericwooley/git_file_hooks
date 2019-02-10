@@ -21,14 +21,17 @@ prod_test_run_head_success:
 
 test:
 	cargo test;
-build_prod:
-	cargo build --release;
-	strip target/release/git_file_hooks;
-	
-build_linux:
-	make build_prod;
-	cp target/release/git_file_hooks build/git_file_hooks-linux-gnu;
 
-build_osx:
+build_prod:
+	./build-prod.sh;
+
+build:
 	make build_prod;
-	cp target/release/git_file_hooks build/git_file_hooks-darwin;
+
+build-dev:
+	cargo build;
+
+clean:
+	cargo clean;
+	rm -rf build/*;
+	rm -rf tmp/*;
