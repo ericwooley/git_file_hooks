@@ -21,6 +21,7 @@ pub fn get_hook() -> String {
 }
 fn arg0_to_hook(cmd: &String) -> String {
     let cmd = PathBuf::from(cmd);
+    println!("running hook: {:?}", cmd);
     cmd.file_name()
         .expect("Unable to determine hook")
         .to_string_lossy()

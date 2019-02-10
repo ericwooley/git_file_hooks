@@ -24,7 +24,8 @@ install_hook() {
         fi
     fi
     echo "installing $HOOK";
-    curl -L -s https://github.com/ericwooley/git_file_hooks/releases/download/$VERSION/git_file_hooks-$OS -o .git/hooks/$HOOK;
+     cp build/git_file_hooks-$OS .git/hooks/$HOOK
+    # curl -L -s https://github.com/ericwooley/git_file_hooks/releases/download/$VERSION/git_file_hooks-$OS -o .git/hooks/$HOOK;
     chmod +x .git/hooks/$HOOK;
 }
 
