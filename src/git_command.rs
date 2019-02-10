@@ -13,38 +13,46 @@ pub fn get_hook() -> String {
     let cmd = &argv[0];
     if argv.len() > 3 {
         let cmd = String::from(argv[3].clone());
-        for hook in (vec![
-            String::from("applypatch-msg"),
-            String::from("pre-applypatch"),
-            String::from("post-applypatch"),
-            String::from("pre-commit"),
-            String::from("prepare-commit-msg"),
-            String::from("commit-msg"),
-            String::from("post-commit"),
-            String::from("pre-rebase"),
-            String::from("post-checkout"),
-            String::from("post-merge"),
-            String::from("pre-push"),
-            String::from("pre-receive"),
-            String::from("update"),
-            String::from("post-receive"),
-            String::from("post-update"),
-            String::from("push-to-checkout"),
-            String::from("pre-auto-gc"),
-            String::from("post-rewrite"),
-            String::from("rebase"),
-            String::from("sendemail-validate"),
-            String::from("fsmonitor-watchman"),
-        ])
-        .iter()
-        {
-            if &cmd == hook {
-                return cmd;
-            }
+        if str_is_hook(&cmd) {
+            return cmd;
         }
     }
     arg0_to_hook(cmd)
 }
+
+fn str_is_hook(s: &String) -> bool {
+    for hook in (vec![
+        String::from("applypatch-msg"),
+        String::from("pre-applypatch"),
+        String::from("post-applypatch"),
+        String::from("pre-commit"),
+        String::from("prepare-commit-msg"),
+        String::from("commit-msg"),
+        String::from("post-commit"),
+        String::from("pre-rebase"),
+        String::from("post-checkout"),
+        String::from("post-merge"),
+        String::from("pre-push"),
+        String::from("pre-receive"),
+        String::from("update"),
+        String::from("post-receive"),
+        String::from("post-update"),
+        String::from("push-to-checkout"),
+        String::from("pre-auto-gc"),
+        String::from("post-rewrite"),
+        String::from("rebase"),
+        String::from("sendemail-validate"),
+        String::from("fsmonitor-watchman"),
+    ])
+    .iter()
+    {
+        if s == hook {
+            return true;
+        }
+    }
+    false
+}
+
 fn arg0_to_hook(cmd: &String) -> String {
     let cmd = PathBuf::from(cmd);
     cmd.file_name()
@@ -53,16 +61,28 @@ fn arg0_to_hook(cmd: &String) -> String {
         .to_string()
 }
 
+// TODO: This function could be cleaned up
 pub fn get_changed_files() -> Vec<String> {
     let argv = get_argv();
-    let git_hash_1 = match argv.get(1) {
+    let mut git_hash_1 = match argv.get(1) {
         Some(v) => v.clone(),
         None => String::from("HEAD"),
     };
-    let git_hash_2 = match argv.get(2) {
+    let mut git_hash_2 = match argv.get(2) {
         Some(v) => v.clone(),
         None => String::from("ORIG_HEAD"),
     };
+
+    match argv.get(3) {
+        Some(v) => {
+            if !str_is_hook(&v) {
+                git_hash_1 = String::from("HEAD");
+                git_hash_2 = String::from("ORIG_HEAD");
+            }
+        }
+        None => (),
+    };
+
     println!("diffing {} and {}", git_hash_1, git_hash_2);
     run_git_diff_files(&git_hash_1, &git_hash_2)
 }
@@ -114,6 +134,14 @@ pub fn filter_commands_by_files(
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn it_should_recognize_hooks() {
+        assert!(
+            str_is_hook(&String::from("post-checkout")),
+            "post-checkout is a hook"
+        )
+    }
     #[test]
     fn it_should_get_hook() {
         assert_eq!(
