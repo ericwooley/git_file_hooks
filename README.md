@@ -12,9 +12,9 @@ Manage your git hooks, and only run the ones you need. Commit a yaml file, and l
 * streaming output for commands instead of catpuring output and adding it later. [See this issue](https://github.com/sagiegurari/run_script/issues/4)
 
 ## Installation
-
-1.  `bash <(curl -fsSL https://raw.githubusercontent.com/ericwooley/git_file_hooks/master/install.sh)` or curl into a file, inspect and run that.
-2.  create .file_hooks.yml with the content
+1. cd to your git project.
+1.  run `bash <(curl -fsSL https://raw.githubusercontent.com/ericwooley/git_file_hooks/master/install.sh)` or curl into a file, inspect and run that.
+2.  (optionally) create .file_hooks.yml with the content
 
 ```yml
 post-checkout: &BASIC_HOOK_COMMAND
