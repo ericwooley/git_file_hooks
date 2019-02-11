@@ -65,7 +65,7 @@ You can run the install script with a few enviornment variables for easier upgra
 ### Upgrade and backup existing hooks
 `OVERWRITE_ALL_HOOKS=true ./install.sh`
 ### Upgrade and do not backup existing hooks
-`OVERWRITE_ALL_HOOKS=true NO_HOOK_BACKUPS=true ./install.sh`
+`OVERWRITE_ALL_HOOKS=true NO_HOOK_BACKUPS=true bash <(curl -fsSL https://raw.githubusercontent.com/ericwooley/git_file_hooks/master/install.sh)`
 
 ## Development
 Use cargo:1.32.0
@@ -74,7 +74,7 @@ The make file has various helpful tasks. It's most of it's integration tests are
 
 `make build` will generate a build for your platform. 
 
-`OVERWRITE_ALL_HOOKS=true NO_HOOK_BACKUPS=true USE_LOCAL=true ./install.sh` Will install the build from the build/* directory instead of from the latest resease.
+`OVERWRITE_ALL_HOOKS=true NO_HOOK_BACKUPS=true USE_LOCAL=true bash <(curl -fsSL https://raw.githubusercontent.com/ericwooley/git_file_hooks/master/install.sh)` Will install the build from the build/* directory instead of from the latest resease.
 
 ## Releasing a new version.
 1. Push the changes, `make build` and draft a new release using `vX.X.X` where X is the release number.
