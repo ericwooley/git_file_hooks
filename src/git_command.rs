@@ -164,6 +164,7 @@ mod tests {
         );
     }
     #[test]
+    #[ignore]
     fn it_should_get_the_changed_files() {
         assert_eq!(
             run_git_diff_files(

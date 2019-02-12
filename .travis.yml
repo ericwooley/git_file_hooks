@@ -9,7 +9,6 @@ before_install:
   - openssl aes-256-cbc -K $encrypted_423875454745_key -iv $encrypted_423875454745_iv
     -in signing-key.gpg.enc -out signing-key.gpg -d
 script:
-  - git fetch
   - make build -B
   - 'echo "built files: `ls build`"'
   - cargo test
