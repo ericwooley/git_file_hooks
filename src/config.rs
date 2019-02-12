@@ -16,6 +16,14 @@ pub fn from_file() -> parse::Config {
     parse::Config::new(&r)
 }
 
+pub fn exit_if_env_is_set() {
+    let program_should_continue = env::var("SKIP_GIT_HOOKS").is_err();
+    if !program_should_continue {
+        println!("Skipping hook because SKIP_HOOK is set");
+        process::exit(0)
+    }
+}
+
 fn append_file_hooks(path: &mut PathBuf) -> PathBuf {
     path.join(".file_hooks.yml")
 }

@@ -11,6 +11,7 @@ mod git_command;
 mod parse;
 
 fn main() {
+    config::exit_if_env_is_set();
     let conf = config::from_file();
     let hook = git_command::get_hook();
     println!("Running hook: {}", hook);
