@@ -1,3 +1,6 @@
+os:
+  - linux
+  - osx
 language: rust
 rust:
   - 1.32.0
@@ -7,5 +10,14 @@ before_install:
     -in signing-key.gpg.enc -out signing-key.gpg -d
 
 script:
-  - cargo build
+  - make build
   - cargo test
+
+deploy:
+  provider: releases
+  api_key:
+    secure: "Vq0ls/sne4dKHvOre51wDfZd2XhWYSmIx5amx907f3saUV2LShYu7gIeDImTcD+XuT+RyS5drl/hYmoqtS7eXBNOH6x32Jon8yMc+Q2imZOchwCrF1jH5IVBpaTVnWfg8bre4aMEef6tITakyMcOE2XtZsBEA4oF1g7oGEqIE8AZ5KHAaeTgn+Lj3RGYQK8Y8a5pWaJfMuVBgMzAA7O2T/KlJK8ps+pfhsRpvyNLxVUdRHTqTZ3JJlhpFsgZHwT1xwnKQNpPkgEGwoFVCRMnLyJHhdkOSsCi/vZwnM6fb7hnRa4dHlpRomOvrOOjRCxhSyi0ANgL7xwQ53zbgXJHLtNI8yzOB1VXj4PY4vSrsdMhp5qMmv5s20EZtz3qLnkcX+ZZ3UD0eqpX9vcy8U5931klkFoWubHPyIgMonArklxdSWTeVdRcBzDrQA4lYZY22QPPY0LTJDxFFS8486nhI6Z8l45bv2Z7mADxT97ZtLsDsY/hRkAwwCBMGAcY1cuxDj28R0ChJQwUXL3JEEAzIosrycZbdNWx6Op6WqwoSmHiULk5elmnYJFYyHe4Eb945wpgUvXciqlyElW+r7ceCXAn6aLjWjZhXwuUsnc/XGuxc6qqpXzSGulftost9I7+sjkFwSEdx9n6YzlZcrPqv6wSvi2IOHpXMJfDDyCwIag="
+  file: "build/*"
+  skip_cleanup: true
+  on:
+    tags: true
