@@ -19,13 +19,13 @@ test_run_success: mk_temp
 	cargo build --release;
 	cp ./target/release/git_file_hooks tmp/post-checkout;
 	strip tmp/post-checkout;
-	./tmp/post-checkout 19b2ea5c076971433d3a8e13a3f602eaf939380e 397dfdfcb846076d0423f9ab5ce3bae80133b551 || exit 0;
+	./tmp/post-checkout 19b2ea5c076971433d3a8e13a3f602eaf939380e 397dfdfcb846076d0423f9ab5ce3bae80133b551;
 
 test_run_head_success: mk_temp
 	cargo build --release;
 	cp ./target/release/git_file_hooks tmp/post-checkout;
 	strip tmp/post-checkout;
-	./tmp/post-checkout || exit 0;
+	./tmp/post-checkout;
 
 integration_test: test_run_failure test_run_success test_run_head_success
 	echo "\n\n\n\n\n🙌 🙌 Integration test passed 🙌 🙌\n\n\n\n\n"

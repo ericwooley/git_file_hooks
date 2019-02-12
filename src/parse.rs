@@ -5,23 +5,13 @@ pub struct Command {
     pub patterns: Vec<String>,
     pub commands: Vec<String>,
 }
-#[derive(Debug)]
+
+#[derive(Deserialize, Debug)]
 pub struct Config {
-    map: HashMap<String, Vec<Command>>,
+    pub hooks: HashMap<String, Vec<Command>>,
 }
 
-impl Config {
-    pub fn new(raw_yaml: &String) -> Config {
-        Config {
-            map: deserialize_config(raw_yaml),
-        }
-    }
-    pub fn get_commands(&self, hook: &String) -> Option<&Vec<Command>> {
-        self.map.get(hook)
-    }
-}
-
-fn deserialize_config(raw: &String) -> HashMap<String, Vec<Command>> {
+pub fn deserialize_config(raw: &String) -> Config {
     serde_yaml::from_str(&raw).unwrap_or_else(|err| {
         eprintln!("Could not parse input:\n {}", &raw.as_str());
         eprintln!("Error: {:?}", err);
@@ -36,15 +26,16 @@ mod tests {
     fn valid_deserialize_config() {
         let config = String::from(
             r#"
-checkout:
-  - patterns:
-      - "test"
-    commands:
-      - "echo 'works'""#,
+hooks:
+  checkout:
+    - patterns:
+        - "test"
+      commands:
+        - "echo 'works'""#,
         );
         println!("Testing Valid config, {}", config);
         let parsed_config = deserialize_config(&config);
-        assert!(parsed_config.get("checkout").unwrap().len() == 1);
+        assert!(parsed_config.hooks.get("checkout").unwrap().len() == 1);
     }
     #[test]
     #[should_panic]
@@ -59,30 +50,29 @@ checkout:
     fn invalid_deserialize_config() {
         let config = String::from(
             r#"
+hooks:
 checkout:
-  patterns:
-      - "test"
-    commands:
-      - "echo 'works'""#,
+    patterns:
+        - "test"
+      commands:
+        - "echo 'works'""#,
         );
         println!("Testing Valid config, {}", config);
         deserialize_config(&config);
     }
     #[test]
     fn get_checkout_config() {
-        let config = Config::new(&String::from(
+        let config = deserialize_config(&String::from(
             r#"
-checkout:
-  - patterns:
-      - "test"
-    commands:
-      - "echo 'works'""#,
+hooks:
+  checkout:
+    - patterns:
+        - "test"
+      commands:
+        - "echo 'works'""#,
         ));
         assert_eq!(
-            config
-                .get_commands(&String::from("checkout"))
-                .unwrap()
-                .len(),
+            config.hooks.get(&String::from("checkout")).unwrap().len(),
             1
         );
     }

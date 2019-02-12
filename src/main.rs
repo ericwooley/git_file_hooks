@@ -15,7 +15,7 @@ fn main() {
     let conf = config::from_file();
     let hook = git_command::get_hook();
     println!("Running hook: {}", hook);
-    let commands = match conf.get_commands(&hook) {
+    let commands = match conf.hooks.get(&hook) {
         Some(c) => c,
         None => {
             println!("No commands for: {}", hook);

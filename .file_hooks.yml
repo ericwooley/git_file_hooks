@@ -27,32 +27,32 @@ cargo_test: &CARGO_TEST
     commands:
       - cargo test;
 # Hooks
+hooks:
+  pre-push: *CARGO_TEST
+  pre-commit: *CARGO_TEST
 
-pre-push: *CARGO_TEST
-pre-commit: *CARGO_TEST
+  post-checkout: *RUST_SLEEP_TEST
 
-post-checkout: *RUST_SLEEP_TEST
-
-# Test Hooks
-update: *RUST_TEST_FAILURE
-# applypatch-msg: *BASIC_HOOK_COMMAND
-# pre-applypatch: *BASIC_HOOK_COMMAND
-# post-applypatch: *BASIC_HOOK_COMMAND
-# pre-commit: *BASIC_HOOK_COMMAND
-# prepare-commit-msg: *BASIC_HOOK_COMMAND
-# commit-msg: *BASIC_HOOK_COMMAND
-# post-commit: *BASIC_HOOK_COMMAND
-# pre-rebase: *BASIC_HOOK_COMMAND
-# post-checkout: *BASIC_HOOK_COMMAND
-# post-merge: *BASIC_HOOK_COMMAND
-# pre-push: *BASIC_HOOK_COMMAND
-# pre-receive: *BASIC_HOOK_COMMAND
-# update: *BASIC_HOOK_COMMAND
-# post-receive: *BASIC_HOOK_COMMAND
-# post-update: *BASIC_HOOK_COMMAND
-# push-to-checkout: *BASIC_HOOK_COMMAND
-# pre-auto-gc: *BASIC_HOOK_COMMAND
-# post-rewrite: *BASIC_HOOK_COMMAND
-# rebase: *BASIC_HOOK_COMMAND
-# sendemail-validate: *BASIC_HOOK_COMMAND
-# fsmonitor-watchman: *BASIC_HOOK_COMMAND
+  # Test Hooks
+  update: *RUST_TEST_FAILURE
+  # applypatch-msg: *BASIC_HOOK_COMMAND
+  # pre-applypatch: *BASIC_HOOK_COMMAND
+  # post-applypatch: *BASIC_HOOK_COMMAND
+  # pre-commit: *BASIC_HOOK_COMMAND
+  # prepare-commit-msg: *BASIC_HOOK_COMMAND
+  # commit-msg: *BASIC_HOOK_COMMAND
+  # post-commit: *BASIC_HOOK_COMMAND
+  # pre-rebase: *BASIC_HOOK_COMMAND
+  # post-checkout: *BASIC_HOOK_COMMAND
+  # post-merge: *BASIC_HOOK_COMMAND
+  # pre-push: *BASIC_HOOK_COMMAND
+  # pre-receive: *BASIC_HOOK_COMMAND
+  # update: *BASIC_HOOK_COMMAND
+  # post-receive: *BASIC_HOOK_COMMAND
+  # post-update: *BASIC_HOOK_COMMAND
+  # push-to-checkout: *BASIC_HOOK_COMMAND
+  # pre-auto-gc: *BASIC_HOOK_COMMAND
+  # post-rewrite: *BASIC_HOOK_COMMAND
+  # rebase: *BASIC_HOOK_COMMAND
+  # sendemail-validate: *BASIC_HOOK_COMMAND
+  # fsmonitor-watchman: *BASIC_HOOK_COMMAND

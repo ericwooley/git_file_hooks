@@ -13,7 +13,7 @@ pub fn from_file() -> parse::Config {
     let mut r = String::new();
     file.read_to_string(&mut r)
         .expect("Could not read file stream");
-    parse::Config::new(&r)
+    parse::deserialize_config(&r)
 }
 
 pub fn exit_if_env_is_set() {
