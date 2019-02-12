@@ -18,7 +18,10 @@ deploy:
     secure: vfEzmSk5ZQMLFNTEeaTxiGBlhKQqah9CyL284JaiCK6wCAWbdrYmTjMrIet/0V/HZ0ViDQHfNAGiJlGwjPNw2/MrYQt7OeOmW3bLkhzMl2RytG1GiH09FqCK7hgS3lBj3Bc/NB8iymz/cuHmTSJNA+CaTDU/JMWpfrHNBAts/2wUCT5A22XPGLfE2rNANtaw5Kns+j9Vj0jF9nOuyTWsm96o4uJWshQNQX07QszuyJuG0vyyjArCGdIH6keHz1peAGS6QHcZOEDQELnamct3rCznlCZktgIMEUnSx5piX3mKIvX26YBKnCv9ojtPi5iVKZoCsh0WfBkeCWIAuXmMCxg38ZZJ2lNB2yXFgSIM0sELfOl1FopR5ZwNy8A0TIX8u8cgC+eYcUtZR1sD63C0bxlygmnn0kusLldkGtKUmZ6VJFeNyeAJnWlzaZ+RiqOePfZjaI/Xawn5YShKoY5uW0OV0K7KQmof7LqA6w4Qe986hn0mfus+gFUxatbQygHC4aTP5Ksl9oh1AQLZ/eeZuzhOE7fICXe7Uj908ZTN+zcr+puh7oD4iHHPXMiPI7BuM7pKYTkRzGJXm9pklCXjMgC+LeUCvBhJpjr3SwzM42WFSqXiN/7mJ2zNEVoFE2X43a7atETzshRzG7+CZEK4tdOznE7i/mZdQnzlJyzzwos=
   file_glob: true
   file: build/**/*
+  skip_cleanup: true
   on:
+    tags: true
     repo: ericwooley/git_file_hooks
     branch: master
   draft: true
+  overwrite: true
