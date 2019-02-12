@@ -20,6 +20,9 @@ Manage your git hooks, and only run the ones you need. Commit a yaml file, and l
 1. (optionally) create .file_hooks.yml with the content
 
 ```yml
+## There will be options, but there aren't yet, so this keyword is reserved
+# options:
+
 post-checkout: &BASIC_HOOK_COMMAND
   - patterns:
       - "**/yarn.lock"
@@ -39,28 +42,28 @@ post-checkout: &BASIC_HOOK_COMMAND
       # each entry is run in parallel, so run these in order.
       - rake migrate:data; rake migrate:db;
 # YAML has templates, so you can reuse configs.
-
-# applypatch-msg: *BASIC_HOOK_COMMAND
-# pre-applypatch: *BASIC_HOOK_COMMAND
-# post-applypatch: *BASIC_HOOK_COMMAND
-# pre-commit: *BASIC_HOOK_COMMAND
-# prepare-commit-msg: *BASIC_HOOK_COMMAND
-# commit-msg: *BASIC_HOOK_COMMAND
-# post-commit: *BASIC_HOOK_COMMAND
-# pre-rebase: *BASIC_HOOK_COMMAND
-# post-checkout: *BASIC_HOOK_COMMAND
-# post-merge: *BASIC_HOOK_COMMAND
-# pre-push: *BASIC_HOOK_COMMAND
-# pre-receive: *BASIC_HOOK_COMMAND
-# update: *BASIC_HOOK_COMMAND
-# post-receive: *BASIC_HOOK_COMMAND
-# post-update: *BASIC_HOOK_COMMAND
-# push-to-checkout: *BASIC_HOOK_COMMAND
-# pre-auto-gc: *BASIC_HOOK_COMMAND
-# post-rewrite: *BASIC_HOOK_COMMAND
-# rebase: *BASIC_HOOK_COMMAND
-# sendemail-validate: *BASIC_HOOK_COMMAND
-# fsmonitor-watchman: *BASIC_HOOK_COMMAND
+hooks:
+  # applypatch-msg: *BASIC_HOOK_COMMAND
+  # pre-applypatch: *BASIC_HOOK_COMMAND
+  # post-applypatch: *BASIC_HOOK_COMMAND
+  # pre-commit: *BASIC_HOOK_COMMAND
+  # prepare-commit-msg: *BASIC_HOOK_COMMAND
+  # commit-msg: *BASIC_HOOK_COMMAND
+  post-commit: *BASIC_HOOK_COMMAND
+  # pre-rebase: *BASIC_HOOK_COMMAND
+  # post-checkout: *BASIC_HOOK_COMMAND
+  # post-merge: *BASIC_HOOK_COMMAND
+  # pre-push: *BASIC_HOOK_COMMAND
+  # pre-receive: *BASIC_HOOK_COMMAND
+  # update: *BASIC_HOOK_COMMAND
+  # post-receive: *BASIC_HOOK_COMMAND
+  # post-update: *BASIC_HOOK_COMMAND
+  # push-to-checkout: *BASIC_HOOK_COMMAND
+  # pre-auto-gc: *BASIC_HOOK_COMMAND
+  # post-rewrite: *BASIC_HOOK_COMMAND
+  # rebase: *BASIC_HOOK_COMMAND
+  # sendemail-validate: *BASIC_HOOK_COMMAND
+  # fsmonitor-watchman: *BASIC_HOOK_COMMAND
 ```
 
 ## Skipping tests
