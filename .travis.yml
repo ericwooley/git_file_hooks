@@ -12,6 +12,8 @@ script:
   - make build -B
   - 'echo "built files: `ls build`"'
   - cargo test
+  - make integration_test
+
 deploy:
   provider: releases
   api_key:
