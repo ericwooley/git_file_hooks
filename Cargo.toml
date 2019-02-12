@@ -1,6 +1,6 @@
 [package]
 name = "git_file_hooks"
-version = "0.1.0"
+version = "0.0.6"
 authors = ["Eric Wooley <ericwooley@gmail.com>"]
 edition = "2018"
 [profile.release]

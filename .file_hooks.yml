@@ -25,7 +25,7 @@ cargo_test: &CARGO_TEST
   - patterns:
       - "**/*.rs"
     commands:
-      - cargo test;
+      - make test;
 # Hooks
 hooks:
   pre-push: *CARGO_TEST
