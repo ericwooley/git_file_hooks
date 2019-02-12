@@ -1,7 +1,7 @@
 OS = ${OSTYPE}
 test_run:
 	cargo run 19b2ea5c076971433d3a8e13a3f602eaf939380e 397dfdfcb846076d0423f9ab5ce3bae80133b551 post-checkout;
-	
+
 prod_test_run_failure:
 	cargo build --release;
 	cp ./target/release/git_file_hooks tmp/update;
@@ -22,10 +22,11 @@ prod_test_run_head_success:
 
 
 integration_test: prod_test_run_failure prod_test_run_success prod_test_run_head_success
-	echo "\n\n Integration test passed"
+	echo "\n\n\n\n\n🙌 🙌 Integration test passed 🙌 🙌\n\n\n\n\n"
 
-test:
+test: integration_test
 	cargo test;
+	echo "\n\n\n\n\n🙌 🙌 Tests Passed 🙌 🙌\n\n\n\n\n";
 
 build_prod:
 	./build-prod.sh;
