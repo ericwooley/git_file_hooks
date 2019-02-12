@@ -1,11 +1,11 @@
 language: rust
 rust:
-  - 1.0.0
+  - 1.32.0
 cache: cargo
 before_install:
   - openssl aes-256-cbc -K $encrypted_423875454745_key -iv $encrypted_423875454745_iv
     -in signing-key.gpg.enc -out signing-key.gpg -d
 
 script:
-  - cargo build --verbose --all
-  - cargo test --verbose --all
+  - cargo build
+  - cargo test
