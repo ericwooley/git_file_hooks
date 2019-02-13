@@ -4,7 +4,7 @@ Manage your git hooks, and only run the ones you need. Commit a yaml file, and l
 
 ## Features
 
-- 0 dependencies, just a single blob.
+- 0 runtime dependencies, just a single blob.
 - place your .file_hooks.yml file anywhere up your file tree from the git repo.
 - concurrently run commands.
 
