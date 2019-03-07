@@ -106,9 +106,7 @@ The make file has various helpful tasks. It's most of it's integration tests are
 
 ## About .file_hooks.yml
 
-At the root is the name of the hook (currently only post-checkout is supported).
-
-The next level down is an array of `{patterns: [], commands: []}`
+hooks are an array of `{patterns: [], commands: []}`
 
 The patterns are globs that will be run against the files that changed, if any of them match, the commands will be run (in parallel).
 
